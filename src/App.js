@@ -1,25 +1,110 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react';
+
+import {
+    BrowserRouter,
+    Routes,
+    Route
+} from 'react-router-dom';
+
+import axios from 'axios';
+
+import Navbar from './components/Navbar';
+
+import EODForm from './pages/EODForm';
+
+import AdminPage from './pages/AdminPage';
+
+import AdminLogin from './pages/AdminLogin';
+
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    const [employees, setEmployees] = useState([]);
+
+
+
+    useEffect(() => {
+
+        fetchEmployees();
+
+    }, []);
+
+
+
+    const fetchEmployees = async () => {
+
+        try {
+
+            const response = await axios.get(
+                'http://localhost:5000/api/employees'
+            );
+
+            setEmployees(response.data);
+
+        } catch (error) {
+
+            console.log(error);
+
+        }
+
+    };
+
+
+
+    return (
+
+        <BrowserRouter>
+
+            <Navbar />
+
+            <Routes>
+
+                {/* =========================
+                    MAIN EOD PAGE
+                ========================= */}
+
+                <Route
+                    path="/"
+                    element={
+                        <EODForm
+                            employees={employees}
+                        />
+                    }
+                />
+
+
+
+                {/* =========================
+                    ADMIN LOGIN
+                ========================= */}
+
+                <Route
+                    path="/admin"
+                    element={
+                        <AdminLogin />
+                    }
+                />
+
+
+
+                {/* =========================
+                    ADMIN PANEL
+                ========================= */}
+
+                <Route
+                    path="/admin-panel"
+                    element={
+                        <AdminPage fetchEmployees={fetchEmployees} />
+                    }
+                />
+
+            </Routes>
+
+        </BrowserRouter>
+
+    );
+
 }
 
 export default App;
