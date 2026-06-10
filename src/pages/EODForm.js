@@ -39,7 +39,7 @@ function EODForm({ employees }) {
     const handleEmployeeChange = (e) => {
 
         const selectedEmployee = employees.find(
-            emp => emp.id === e.target.value
+            emp => emp.id === Number(e.target.value)
         );
 
         setEmployee(e.target.value);
@@ -108,7 +108,7 @@ function EODForm({ employees }) {
     const removeRow = (index) => {
 
         const updatedTasks = tasks.filter(
-            (_, i) => i !=== index
+            (_, i) => i !== index
         );
 
         setTasks(updatedTasks);
@@ -144,7 +144,7 @@ function EODForm({ employees }) {
 
 
             const response = await fetch(
-                'https://eod-system.onrender.com',
+                'https://eod-system.onrender.com/api/eod',
                 {
                     method: 'POST',
 
