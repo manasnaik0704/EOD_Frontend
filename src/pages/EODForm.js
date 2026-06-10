@@ -144,7 +144,7 @@ function EODForm({ employees }) {
 
 
             const response = await fetch(
-                'http://localhost:5000/api/eod',
+                'https://eod-system.onrender.com',
                 {
                     method: 'POST',
 
