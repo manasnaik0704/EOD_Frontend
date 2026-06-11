@@ -16,6 +16,8 @@ import AdminPage from './pages/AdminPage';
 
 import AdminLogin from './pages/AdminLogin';
 
+import ReportsPage from './pages/ReportsPage';
+
 function App() {
 
     const [employees, setEmployees] = useState([]);
@@ -52,6 +54,8 @@ function App() {
 
             <Routes>
 
+                {/* EOD FORM */}
+
                 <Route
                     path="/"
                     element={
@@ -61,6 +65,8 @@ function App() {
                     }
                 />
 
+                {/* ADMIN LOGIN */}
+
                 <Route
                     path="/admin"
                     element={
@@ -68,12 +74,23 @@ function App() {
                     }
                 />
 
+                {/* ADMIN PANEL */}
+
                 <Route
                     path="/admin-panel"
                     element={
                         <AdminPage
                             fetchEmployees={fetchEmployees}
                         />
+                    }
+                />
+
+                {/* REPORTS PAGE */}
+
+                <Route
+                    path="/admin-reports"
+                    element={
+                        <ReportsPage />
                     }
                 />
 

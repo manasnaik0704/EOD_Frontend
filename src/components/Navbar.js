@@ -14,9 +14,9 @@ function Navbar() {
 
             </h1>
 
-
-
             <div className="flex gap-4">
+
+                {/* EOD FORM */}
 
                 <Link to="/">
 
@@ -28,13 +28,25 @@ function Navbar() {
 
                 </Link>
 
-
+                {/* ADMIN */}
 
                 <Link to="/admin">
 
                     <button className="bg-black text-white px-4 py-2 rounded">
 
                         Admin
+
+                    </button>
+
+                </Link>
+
+                {/* REPORTS */}
+
+                <Link to="/admin-reports">
+
+                    <button className="bg-green-600 text-white px-4 py-2 rounded">
+
+                        Reports
 
                     </button>
 
