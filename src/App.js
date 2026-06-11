@@ -18,6 +18,8 @@ import AdminLogin from './pages/AdminLogin';
 
 import ReportsPage from './pages/ReportsPage';
 
+import ReportDetail from './pages/ReportDetail';
+
 function App() {
 
     const [employees, setEmployees] = useState([]);
@@ -85,12 +87,21 @@ function App() {
                     }
                 />
 
-                {/* REPORTS PAGE */}
+                {/* REPORTS DASHBOARD */}
 
                 <Route
                     path="/admin-reports"
                     element={
                         <ReportsPage />
+                    }
+                />
+
+                {/* SINGLE REPORT DETAIL */}
+
+                <Route
+                    path="/report/:id"
+                    element={
+                        <ReportDetail />
                     }
                 />
 
