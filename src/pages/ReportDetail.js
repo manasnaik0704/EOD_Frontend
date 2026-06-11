@@ -55,7 +55,10 @@ function ReportDetail() {
                 <p><b>Employee ID:</b> {report[0].employee_code}</p>
                 <p><b>Name:</b> {report[0].name}</p>
                 <p><b>Department:</b> {report[0].department}</p>
-                <p><b>Date:</b> {report[0].report_date}</p>
+                <p>
+    <b>Date:</b>{' '}
+    {new Date(report[0].report_date).toLocaleString('en-IN')}
+</p>
 
             </div>
 
