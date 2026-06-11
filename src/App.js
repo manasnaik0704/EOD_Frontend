@@ -16,13 +16,9 @@ import AdminPage from './pages/AdminPage';
 
 import AdminLogin from './pages/AdminLogin';
 
-
-
 function App() {
 
     const [employees, setEmployees] = useState([]);
-
-
 
     useEffect(() => {
 
@@ -30,14 +26,12 @@ function App() {
 
     }, []);
 
-
-
     const fetchEmployees = async () => {
 
         try {
 
             const response = await axios.get(
-                'http://localhost:5000/api/employees'
+                'https://eod-system.onrender.com/api/employees'
             );
 
             setEmployees(response.data);
@@ -50,8 +44,6 @@ function App() {
 
     };
 
-
-
     return (
 
         <BrowserRouter>
@@ -59,10 +51,6 @@ function App() {
             <Navbar />
 
             <Routes>
-
-                {/* =========================
-                    MAIN EOD PAGE
-                ========================= */}
 
                 <Route
                     path="/"
@@ -73,12 +61,6 @@ function App() {
                     }
                 />
 
-
-
-                {/* =========================
-                    ADMIN LOGIN
-                ========================= */}
-
                 <Route
                     path="/admin"
                     element={
@@ -86,16 +68,12 @@ function App() {
                     }
                 />
 
-
-
-                {/* =========================
-                    ADMIN PANEL
-                ========================= */}
-
                 <Route
                     path="/admin-panel"
                     element={
-                        <AdminPage fetchEmployees={fetchEmployees} />
+                        <AdminPage
+                            fetchEmployees={fetchEmployees}
+                        />
                     }
                 />
 
