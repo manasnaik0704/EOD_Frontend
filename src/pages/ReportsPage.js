@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-
 import axios from 'axios';
 
 function ReportsPage() {
@@ -7,9 +6,7 @@ function ReportsPage() {
     const [reports, setReports] = useState([]);
 
     useEffect(() => {
-
         loadReports();
-
     }, []);
 
     const loadReports = async () => {
@@ -17,7 +14,7 @@ function ReportsPage() {
         try {
 
             const response = await axios.get(
-                'https://eod-system.onrender.com/api/eod'
+                'https://eod-system.onrender.com/api/eod-summary'
             );
 
             setReports(response.data);
@@ -36,7 +33,7 @@ function ReportsPage() {
 
             <h1 className="text-3xl font-bold mb-6">
 
-                All EOD Reports
+                EOD Reports Dashboard
 
             </h1>
 
@@ -63,15 +60,11 @@ function ReportsPage() {
                         </th>
 
                         <th className="border p-3">
-                            Work Plan
+                            Tasks
                         </th>
 
                         <th className="border p-3">
-                            Client
-                        </th>
-
-                        <th className="border p-3">
-                            Status
+                            Action
                         </th>
 
                     </tr>
@@ -80,36 +73,40 @@ function ReportsPage() {
 
                 <tbody>
 
-                    {reports.map((report, index) => (
+                    {reports.map((report) => (
 
-                        <tr key={index}>
+                        <tr key={report.report_id}>
 
-                            <td className="border p-2">
+                            <td className="border p-3">
                                 {report.employee_code}
                             </td>
 
-                            <td className="border p-2">
+                            <td className="border p-3">
                                 {report.name}
                             </td>
 
-                            <td className="border p-2">
+                            <td className="border p-3">
                                 {report.department}
                             </td>
 
-                            <td className="border p-2">
-                                {report.report_date}
+                            <td className="border p-3">
+                                {new Date(
+                                    report.report_date
+                                ).toLocaleDateString()}
                             </td>
 
-                            <td className="border p-2">
-                                {report.work_plan}
+                            <td className="border p-3">
+                                {report.task_count}
                             </td>
 
-                            <td className="border p-2">
-                                {report.client}
-                            </td>
+                            <td className="border p-3">
 
-                            <td className="border p-2">
-                                {report.status}
+                                <button
+                                    className="bg-green-600 text-white px-4 py-2 rounded"
+                                >
+                                    View
+                                </button>
+
                             </td>
 
                         </tr>
