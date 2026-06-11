@@ -36,7 +36,7 @@ function AdminPage({ fetchEmployees }) {
         try {
 
             const response = await axios.get(
-                'http://localhost:5000/api/employees'
+                'https://eod-system.onrender.com/api/employees'
             );
 
             setEmployees(response.data);
@@ -78,7 +78,7 @@ function AdminPage({ fetchEmployees }) {
             }
 
             const response = await axios.post(
-                'http://localhost:5000/api/employees',
+                'https://eod-system.onrender.com/api/employees',
                 {
                     employee_code: employeeCode,
                     name,
@@ -139,7 +139,7 @@ function AdminPage({ fetchEmployees }) {
         try {
 
             const response = await axios.delete(
-                `http://localhost:5000/api/employees/${id}`
+                `https://eod-system.onrender.com/api/employees/${id}`
             );
 
             alert(response.data.message);
