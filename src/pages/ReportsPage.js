@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function ReportsPage() {
+
+    const navigate = useNavigate();
 
     const [reports, setReports] = useState([]);
 
@@ -132,6 +135,11 @@ function ReportsPage() {
                                 <div className="flex gap-2">
 
                                     <button
+                                        onClick={() =>
+                                            navigate(
+                                                `/report/${report.report_id}`
+                                            )
+                                        }
                                         className="bg-green-600 text-white px-4 py-2 rounded"
                                     >
                                         View
