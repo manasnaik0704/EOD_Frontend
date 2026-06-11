@@ -27,6 +27,34 @@ function ReportsPage() {
 
     };
 
+    const deleteReport = async (reportId) => {
+
+        const confirmDelete = window.confirm(
+            'Are you sure you want to delete this EOD Report?'
+        );
+
+        if (!confirmDelete) return;
+
+        try {
+
+            const response = await axios.delete(
+                `https://eod-system.onrender.com/api/eod/${reportId}`
+            );
+
+            alert(response.data.message);
+
+            loadReports();
+
+        } catch (error) {
+
+            console.log(error);
+
+            alert('Delete Failed');
+
+        }
+
+    };
+
     return (
 
         <div className="p-8">
@@ -101,11 +129,26 @@ function ReportsPage() {
 
                             <td className="border p-3">
 
-                                <button
-                                    className="bg-green-600 text-white px-4 py-2 rounded"
-                                >
-                                    View
-                                </button>
+                                <div className="flex gap-2">
+
+                                    <button
+                                        className="bg-green-600 text-white px-4 py-2 rounded"
+                                    >
+                                        View
+                                    </button>
+
+                                    <button
+                                        onClick={() =>
+                                            deleteReport(
+                                                report.report_id
+                                            )
+                                        }
+                                        className="bg-red-600 text-white px-4 py-2 rounded"
+                                    >
+                                        Delete
+                                    </button>
+
+                                </div>
 
                             </td>
 
