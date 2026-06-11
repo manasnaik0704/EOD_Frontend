@@ -52,21 +52,10 @@ function ReportDetail() {
 
             <div className="mb-6">
 
-                <p>
-                    <b>Employee ID:</b> {report[0].employee_code}
-                </p>
-
-                <p>
-                    <b>Name:</b> {report[0].name}
-                </p>
-
-                <p>
-                    <b>Department:</b> {report[0].department}
-                </p>
-
-                <p>
-                    <b>Date:</b> {report[0].report_date}
-                </p>
+                <p><b>Employee ID:</b> {report[0].employee_code}</p>
+                <p><b>Name:</b> {report[0].name}</p>
+                <p><b>Department:</b> {report[0].department}</p>
+                <p><b>Date:</b> {report[0].report_date}</p>
 
             </div>
 
@@ -75,23 +64,10 @@ function ReportDetail() {
                 <thead className="bg-blue-700 text-white">
 
                     <tr>
-
-                        <th className="border p-3">
-                            Sr No.
-                        </th>
-
-                        <th className="border p-3">
-                            Work Plan
-                        </th>
-
-                        <th className="border p-3">
-                            Client
-                        </th>
-
-                        <th className="border p-3">
-                            Status
-                        </th>
-
+                        <th className="border p-3">Sr No.</th>
+                        <th className="border p-3">Work Plan</th>
+                        <th className="border p-3">Client</th>
+                        <th className="border p-3">Status</th>
                     </tr>
 
                 </thead>

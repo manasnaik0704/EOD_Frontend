@@ -1,26 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-function ReportDetail() {
+function ReportsPage() {
 
-    const { id } = useParams();
+    const navigate = useNavigate();
 
-    const [report, setReport] = useState([]);
+    const [reports, setReports] = useState([]);
 
     useEffect(() => {
-        loadReport();
+
+        loadReports();
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+
     }, []);
 
-    const loadReport = async () => {
+    const loadReports = async () => {
 
         try {
 
             const response = await axios.get(
-                `https://eod-system.onrender.com/api/eod/${id}`
+                'https://eod-system.onrender.com/api/eod-summary'
             );
 
-            setReport(response.data);
+            setReports(response.data);
 
         } catch (error) {
 
@@ -30,43 +34,43 @@ function ReportDetail() {
 
     };
 
-    if (report.length === 0) {
+    const deleteReport = async (reportId) => {
 
-        return (
-            <div className="p-8">
-                Loading...
-            </div>
+        const confirmDelete = window.confirm(
+            'Are you sure you want to delete this EOD Report?'
         );
 
-    }
+        if (!confirmDelete) return;
+
+        try {
+
+            const response = await axios.delete(
+                `https://eod-system.onrender.com/api/eod/${reportId}`
+            );
+
+            alert(response.data.message);
+
+            loadReports();
+
+        } catch (error) {
+
+            console.log(error);
+
+            alert('Delete Failed');
+
+        }
+
+    };
 
     return (
 
         <div className="p-8">
 
             <h1 className="text-3xl font-bold mb-6">
-                EOD Report Details
+
+                EOD Reports Dashboard
+
             </h1>
-
-            <div className="mb-6">
-
-                <p>
-                    <b>Employee ID:</b> {report[0].employee_code}
-                </p>
-
-                <p>
-                    <b>Name:</b> {report[0].name}
-                </p>
-
-                <p>
-                    <b>Department:</b> {report[0].department}
-                </p>
-
-                <p>
-                    <b>Date:</b> {report[0].report_date}
-                </p>
-
-            </div>
 
             <table className="w-full border">
 
@@ -75,19 +79,27 @@ function ReportDetail() {
                     <tr>
 
                         <th className="border p-3">
-                            Sr No.
+                            Employee ID
                         </th>
 
                         <th className="border p-3">
-                            Work Plan
+                            Employee Name
                         </th>
 
                         <th className="border p-3">
-                            Client
+                            Department
                         </th>
 
                         <th className="border p-3">
-                            Status
+                            Date
+                        </th>
+
+                        <th className="border p-3">
+                            Tasks
+                        </th>
+
+                        <th className="border p-3">
+                            Action
                         </th>
 
                     </tr>
@@ -96,24 +108,60 @@ function ReportDetail() {
 
                 <tbody>
 
-                    {report.map((task, index) => (
+                    {reports.map((report) => (
 
-                        <tr key={index}>
+                        <tr key={report.report_id}>
 
                             <td className="border p-3">
-                                {index + 1}
+                                {report.employee_code}
                             </td>
 
                             <td className="border p-3">
-                                {task.work_plan}
+                                {report.name}
                             </td>
 
                             <td className="border p-3">
-                                {task.client}
+                                {report.department}
                             </td>
 
                             <td className="border p-3">
-                                {task.status}
+                                {new Date(
+                                    report.report_date
+                                ).toLocaleDateString()}
+                            </td>
+
+                            <td className="border p-3">
+                                {report.task_count}
+                            </td>
+
+                            <td className="border p-3">
+
+                                <div className="flex gap-2">
+
+                                    <button
+                                        onClick={() =>
+                                            navigate(
+                                                `/report/${report.report_id}`
+                                            )
+                                        }
+                                        className="bg-green-600 text-white px-4 py-2 rounded"
+                                    >
+                                        View
+                                    </button>
+
+                                    <button
+                                        onClick={() =>
+                                            deleteReport(
+                                                report.report_id
+                                            )
+                                        }
+                                        className="bg-red-600 text-white px-4 py-2 rounded"
+                                    >
+                                        Delete
+                                    </button>
+
+                                </div>
+
                             </td>
 
                         </tr>
@@ -130,4 +178,4 @@ function ReportDetail() {
 
 }
 
-export default ReportDetail;
+export default ReportsPage;
